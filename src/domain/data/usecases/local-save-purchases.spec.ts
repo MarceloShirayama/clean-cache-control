@@ -18,17 +18,29 @@ class CacheStoreSpy implements CacheStore {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type SutTypes = {
+  sut: LocalSavePurchases
+  cacheStore: CacheStoreSpy
+}
+
+const makeSut = (): SutTypes => {
+  const cacheStore = new CacheStoreSpy()
+  const sut = new LocalSavePurchases(cacheStore)
+  return {
+    sut,
+    cacheStore
+  }
+}
+
 describe('LocalSavePurchases', () => {
   it('Should not delete cache on sut.init', () => {
-    const cacheStore = new CacheStoreSpy()
-    // eslint-disable-next-line no-new
-    new LocalSavePurchases(cacheStore)
+    const { cacheStore } = makeSut()
     expect(cacheStore.deleteCallsCount).toBe(0)
   })
 
   it('Should delete old cache on sut.save', async () => {
-    const cacheStore = new CacheStoreSpy()
-    const sut = new LocalSavePurchases(cacheStore)
+    const { sut, cacheStore } = makeSut()
     await sut.save()
     expect(cacheStore.deleteCallsCount).toBe(1)
   })
