@@ -7,5 +7,5 @@ module.exports = {
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1'
   },
-  collectCoverageFrom: ['**/src/**/*.js', '!**/src/main/**']
+  collectCoverageFrom: ['**/src/**/*.ts', '!**/src/main/**']
 }
