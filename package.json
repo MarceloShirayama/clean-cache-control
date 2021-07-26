@@ -4,7 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --no-cache --watchAll --colors"
+    "test": "jest --colors",
+    "test:unit": "yarn test --watch --silent --runInBand -c jest-unit-config.js",
+    "test:integration": "yarn test --watch --silent --runInBand -c jest-integration-config.js",
+    "test:ci": "yarn test --coverage --silent",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
