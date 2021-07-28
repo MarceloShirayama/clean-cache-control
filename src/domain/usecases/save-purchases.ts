@@ -3,7 +3,7 @@ export interface SavePurchases {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-namespace SavePurchases {
+export namespace SavePurchases {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   export type Params = {
     id: string
