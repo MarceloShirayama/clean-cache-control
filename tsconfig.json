@@ -5,6 +5,7 @@
     "strictNullChecks": true,
     "paths": {
       "@/*": ["*"]
-    }
+    },
+    "esModuleInterop": true
   }
 }
