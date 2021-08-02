@@ -12,9 +12,9 @@ COLOR='\033[1;33m';
 git s;
 printf "${COLOR}Enter commit message:\n";
 read description_commit;
-yarn jest --noStackTrace --silent --passWithNoTests   --runInBand --colors;
+npm run jest --noStackTrace --silent --passWithNoTests   --runInBand --colors;
 printf "${COLOR}lint:fix\n";
-yarn lint:fix;
+npm run lint:fix;
 
 
 if [ $? -eq 0 ];

@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --colors",
-    "test:unit": "yarn test --watch --silent --runInBand -c jest-unit-config.js",
-    "test:integration": "yarn test --watch --silent --runInBand -c jest-integration-config.js",
-    "test:ci": "yarn test --coverage --silent",
+    "test:unit": "npm test -- --watch --silent --runInBand -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch --silent --runInBand -c jest-integration-config.js",
+    "test:ci": "npm test -- --coverage --silent",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix"
   },

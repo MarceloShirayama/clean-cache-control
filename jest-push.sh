@@ -1,4 +1,4 @@
-yarn test:ci
+npm run test:ci
 
 if [ $? -eq 0 ];
 then
