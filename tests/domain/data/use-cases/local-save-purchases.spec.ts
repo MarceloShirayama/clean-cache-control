@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 interface CacheStore {
+  deleteCallsCount: number;
   delete(): void;
 }
 
@@ -20,17 +21,27 @@ class LocalSavePurchases {
   }
 }
 
+type SutTypes = {
+  sut: LocalSavePurchases;
+  cacheStore: CacheStore;
+};
+
+const makeSut = (): SutTypes => {
+  const cacheStore = new CacheStoreSpy();
+  const sut = new LocalSavePurchases(cacheStore);
+
+  return { cacheStore, sut };
+};
+
 describe("LocalSavePurchases", () => {
   it("Should not delete cache on sut.init", () => {
-    const cacheStore = new CacheStoreSpy();
-    new LocalSavePurchases(cacheStore);
+    const { cacheStore } = makeSut();
 
     expect(cacheStore.deleteCallsCount).toBe(0);
   });
 
   it("Should delete old cache on sut.save", async () => {
-    const cacheStore = new CacheStoreSpy();
-    const sut = new LocalSavePurchases(cacheStore);
+    const { sut, cacheStore } = makeSut();
 
     await sut.save();
 
