@@ -1,40 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { CacheStore } from "@/data/protocols/cache";
 import { LocalSavePurchases } from "@/data/use-cases";
-import { SavePurchases } from "@/domain/use-cases";
-import { mockPurchases } from "tests/mocks";
-
-class CacheStoreSpy implements CacheStore {
-  deleteCallsCount = 0;
-  insertCallsCount = 0;
-  deleteKey = "";
-  insertKey = "";
-  insertValues: SavePurchases.Params[] = [];
-
-  delete(key: string): void {
-    this.deleteCallsCount++;
-    this.deleteKey = key;
-  }
-
-  insert(key: string, value: any): void {
-    this.insertCallsCount++;
-    this.insertKey = key;
-    this.insertValues = value;
-  }
-
-  simulateDeleteError() {
-    vi.spyOn(CacheStoreSpy.prototype, "delete").mockImplementationOnce(() => {
-      throw new Error();
-    });
-  }
-
-  simulateInsertError() {
-    vi.spyOn(CacheStoreSpy.prototype, "insert").mockImplementationOnce(() => {
-      throw new Error();
-    });
-  }
-}
+import { CacheStoreSpy, mockPurchases } from "tests/mocks";
 
 type SutTypes = {
   sut: LocalSavePurchases;
