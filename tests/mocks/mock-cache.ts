@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 
 import { CacheStore } from "@/data/protocols/cache";
-import { SavePurchases } from "@/domain/use-cases";
+import { LoadPurchases, SavePurchases } from "@/domain/use-cases";
 
 export class CacheStoreSpy implements CacheStore {
   actions: CacheStoreSpy.Action[] = [];
@@ -9,10 +9,13 @@ export class CacheStoreSpy implements CacheStore {
   insertKey = "";
   fetchKey = "";
   insertValues: SavePurchases.Params[] = [];
+  fetchResult: any;
 
-  fetch(key: string): void {
+  fetch(key: string): any {
     this.actions.push(CacheStoreSpy.Action.fetch);
     this.fetchKey = key;
+
+    return this.fetchResult;
   }
 
   delete(key: string): void {
