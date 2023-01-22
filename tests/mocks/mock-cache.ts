@@ -44,6 +44,13 @@ export class CacheStoreSpy implements CacheStore {
       throw new Error();
     });
   }
+
+  simulateFetchError() {
+    vi.spyOn(CacheStoreSpy.prototype, "fetch").mockImplementationOnce(() => {
+      this.actions.push(CacheStoreSpy.Action.fetch);
+      throw new Error();
+    });
+  }
 }
 
 export namespace CacheStoreSpy {
