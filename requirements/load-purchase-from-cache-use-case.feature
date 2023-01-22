@@ -8,12 +8,10 @@ Cenário: Caso de sucesso
 5. Sistema retorna uma lista de compras ✅
 
 Cenário: Exceção - Erro ao carregar dados do cache
-1. Sistema limpa o cache ✅
-2. Sistema retorna uma lista vazia ✅
+1. Sistema retorna uma lista vazia ✅
 
 Cenário: Exceção - Cache expirado
-1. Sistema limpa o cache ✅
-2. Sistema retorna uma lista vazia ✅
+1. Sistema retorna uma lista vazia ✅
 
 Cenário: Exceção - Cache vazio
 1. Sistema retorna uma lista vazia ✅
