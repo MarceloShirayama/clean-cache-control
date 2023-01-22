@@ -9,7 +9,7 @@ Cenário: Caso de sucesso
 
 Cenário: Exceção - Cache expirado
 1. Sistema limpa o cache
-2. Sistema retorna erro
+2. Sistema retorna uma lista vazia
 
 Cenário: Exceção - Cache vazio
-1. Sistema retorna erro
+1. Sistema retorna uma lista vazia
