@@ -1,6 +1,8 @@
 export interface CacheStore {
   deleteCallsCount: number;
   insertCallsCount: number;
-  key: string;
+  deleteKey: string;
+  insertKey: string;
   delete(key: string): void;
+  insert(key: string): void;
 }
