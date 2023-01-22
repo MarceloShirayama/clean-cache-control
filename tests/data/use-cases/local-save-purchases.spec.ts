@@ -21,6 +21,12 @@ class CacheStoreSpy implements CacheStore {
     this.insertKey = key;
     this.insertValues = value;
   }
+
+  simulateDeleteError() {
+    vi.spyOn(CacheStoreSpy.prototype, "delete").mockImplementationOnce(() => {
+      throw new Error();
+    });
+  }
 }
 
 const mockPurchases = (): SavePurchases.Params[] => [
@@ -38,7 +44,7 @@ const mockPurchases = (): SavePurchases.Params[] => [
 
 type SutTypes = {
   sut: LocalSavePurchases;
-  cacheStore: CacheStore;
+  cacheStore: CacheStoreSpy;
 };
 
 const makeSut = (): SutTypes => {
@@ -67,9 +73,7 @@ describe("LocalSavePurchases", () => {
   it("Should not insert new cache if delete fails", () => {
     const { sut, cacheStore } = makeSut();
 
-    vi.spyOn(cacheStore, "delete").mockImplementationOnce(() => {
-      throw new Error();
-    });
+    cacheStore.simulateDeleteError();
 
     const promise = sut.save(mockPurchases());
 
