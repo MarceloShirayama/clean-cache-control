@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { CacheStore } from "@/data/protocols/cache";
 import { LocalSavePurchases } from "@/data/use-cases";
 import { SavePurchases } from "@/domain/use-cases";
+import { mockPurchases } from "tests/mocks";
 
 class CacheStoreSpy implements CacheStore {
   deleteCallsCount = 0;
@@ -34,19 +35,6 @@ class CacheStoreSpy implements CacheStore {
     });
   }
 }
-
-const mockPurchases = (): SavePurchases.Params[] => [
-  {
-    id: "1",
-    date: new Date(),
-    value: 50,
-  },
-  {
-    id: "2",
-    date: new Date(),
-    value: 70,
-  },
-];
 
 type SutTypes = {
   sut: LocalSavePurchases;
