@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { LocalLoadPurchases } from "@/data/use-cases";
-import { CacheStoreSpy } from "tests/mocks";
+import { CacheStoreSpy, getCacheExpirationDate } from "tests/mocks";
 
 type SutTypes = {
   sut: LocalLoadPurchases;
@@ -34,5 +34,20 @@ describe("LocalValidatePurchases", () => {
       CacheStoreSpy.Action.delete,
     ]);
     expect(cacheStore.deleteKey).toBe("purchases");
+  });
+
+  it(`Should has no side effects if load succeeds`, () => {
+    const currentDate = new Date();
+    const timestamp = getCacheExpirationDate(currentDate);
+    timestamp.setSeconds(timestamp.getSeconds() + 1);
+
+    const { cacheStore, sut } = makeSut(currentDate);
+
+    cacheStore.fetchResult = { timestamp };
+
+    sut.validate();
+
+    expect(cacheStore.actions).toEqual([CacheStoreSpy.Action.fetch]);
+    expect(cacheStore.fetchKey).toBe("purchases");
   });
 });
