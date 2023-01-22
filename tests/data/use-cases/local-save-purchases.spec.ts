@@ -27,6 +27,12 @@ class CacheStoreSpy implements CacheStore {
       throw new Error();
     });
   }
+
+  simulateInsertError() {
+    vi.spyOn(CacheStoreSpy.prototype, "insert").mockImplementationOnce(() => {
+      throw new Error();
+    });
+  }
 }
 
 const mockPurchases = (): SavePurchases.Params[] => [
@@ -92,5 +98,15 @@ describe("LocalSavePurchases", () => {
     expect(cacheStore.deleteCallsCount).toBe(1);
     expect(cacheStore.insertCallsCount).toBe(1);
     expect(cacheStore.insertValues).toEqual(purchases);
+  });
+
+  it("Should throw if insert throws", async () => {
+    const { sut, cacheStore } = makeSut();
+
+    cacheStore.simulateInsertError();
+
+    const promise = sut.save(mockPurchases());
+
+    expect(promise).rejects.toThrow();
   });
 });
