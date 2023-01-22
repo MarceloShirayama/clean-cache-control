@@ -2,7 +2,7 @@ export interface CacheStore {
   deleteKey: string;
   insertKey: string;
   insertValues: any[];
-  messages: any[];
+  actions: any[];
   delete(key: string): void;
   insert(key: string, value: any): void;
 }

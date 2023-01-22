@@ -4,39 +4,39 @@ import { CacheStore } from "@/data/protocols/cache";
 import { SavePurchases } from "@/domain/use-cases";
 
 export class CacheStoreSpy implements CacheStore {
-  messages: CacheStoreSpy.Message[] = [];
+  actions: CacheStoreSpy.Action[] = [];
   deleteKey = "";
   insertKey = "";
   insertValues: SavePurchases.Params[] = [];
 
   delete(key: string): void {
-    this.messages.push(CacheStoreSpy.Message.delete);
+    this.actions.push(CacheStoreSpy.Action.delete);
     this.deleteKey = key;
   }
 
   insert(key: string, value: any): void {
-    this.messages.push(CacheStoreSpy.Message.insert);
+    this.actions.push(CacheStoreSpy.Action.insert);
     this.insertKey = key;
     this.insertValues = value;
   }
 
   simulateDeleteError() {
     vi.spyOn(CacheStoreSpy.prototype, "delete").mockImplementationOnce(() => {
-      this.messages.push(CacheStoreSpy.Message.delete);
+      this.actions.push(CacheStoreSpy.Action.delete);
       throw new Error();
     });
   }
 
   simulateInsertError() {
     vi.spyOn(CacheStoreSpy.prototype, "insert").mockImplementationOnce(() => {
-      this.messages.push(CacheStoreSpy.Message.insert);
+      this.actions.push(CacheStoreSpy.Action.insert);
       throw new Error();
     });
   }
 }
 
 export namespace CacheStoreSpy {
-  export enum Message {
+  export enum Action {
     delete,
     insert,
   }
