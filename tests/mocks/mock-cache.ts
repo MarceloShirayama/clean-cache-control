@@ -1,7 +1,16 @@
 import { vi } from "vitest";
 
 import { CacheStore } from "@/data/protocols/cache";
-import { LoadPurchases, SavePurchases } from "@/domain/use-cases";
+import { SavePurchases } from "@/domain/use-cases";
+import { config } from "@/config";
+
+export function getCacheExpirationDate(timestamp: Date): Date {
+  const maxCacheDate = new Date(timestamp);
+
+  maxCacheDate.setDate(maxCacheDate.getDate() - config.cacheExpirationInDays);
+
+  return maxCacheDate;
+}
 
 export class CacheStoreSpy implements CacheStore {
   actions: CacheStoreSpy.Action[] = [];

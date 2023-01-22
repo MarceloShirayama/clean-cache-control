@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import { LocalLoadPurchases } from "@/data/use-cases";
-import { CacheStoreSpy, mockPurchases } from "tests/mocks";
+import {
+  CacheStoreSpy,
+  getCacheExpirationDate,
+  mockPurchases,
+} from "tests/mocks";
+import { config } from "@/config";
 
 type SutTypes = {
   sut: LocalLoadPurchases;
@@ -37,11 +42,10 @@ describe("LocalLoadPurchases", () => {
     expect(purchases).toEqual([]);
   });
 
-  it("Should return a list of purchases if cache is less than 3 days old", async () => {
+  it(`Should return a list of purchases if cache is less than 
+    ${config.cacheExpirationInDays} days old`, async () => {
     const currentDate = new Date();
-    const timestamp = new Date(currentDate);
-
-    timestamp.setDate(timestamp.getDate() - 3);
+    const timestamp = getCacheExpirationDate(currentDate);
     timestamp.setSeconds(timestamp.getSeconds() + 1);
 
     const { cacheStore, sut } = makeSut(currentDate);
@@ -58,11 +62,10 @@ describe("LocalLoadPurchases", () => {
     expect(purchases).toEqual(cacheStore.fetchResult.value);
   });
 
-  it("Should return an empty list if cache is more than 3 days old", async () => {
+  it(`Should return an empty list if cache is more than 
+    ${config.cacheExpirationInDays} days old`, async () => {
     const currentDate = new Date();
-    const timestamp = new Date(currentDate);
-
-    timestamp.setDate(timestamp.getDate() - 3);
+    const timestamp = getCacheExpirationDate(currentDate);
     timestamp.setSeconds(timestamp.getSeconds() - 1);
 
     const { cacheStore, sut } = makeSut(currentDate);
@@ -83,11 +86,10 @@ describe("LocalLoadPurchases", () => {
     expect(purchases).toEqual([]);
   });
 
-  it("Should return an empty list if cache is 3 days old", async () => {
+  it(`Should return an empty list if cache is 
+    ${config.cacheExpirationInDays} days old`, async () => {
     const currentDate = new Date();
-    const timestamp = new Date(currentDate);
-
-    timestamp.setDate(timestamp.getDate() - 3);
+    const timestamp = getCacheExpirationDate(currentDate);
 
     const { cacheStore, sut } = makeSut(currentDate);
 
