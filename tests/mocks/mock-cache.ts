@@ -20,6 +20,11 @@ export class CacheStoreSpy implements CacheStore {
     this.insertValues = value;
   }
 
+  replace(key: string, value: any): void {
+    this.delete(key);
+    this.insert(key, value);
+  }
+
   simulateDeleteError() {
     vi.spyOn(CacheStoreSpy.prototype, "delete").mockImplementationOnce(() => {
       this.actions.push(CacheStoreSpy.Action.delete);
