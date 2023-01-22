@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { LocalSavePurchases } from "@/data/use-cases";
+import { LocalLoadPurchases } from "@/data/use-cases";
 import { CacheStoreSpy, mockPurchases } from "tests/mocks";
 
 type SutTypes = {
-  sut: LocalSavePurchases;
+  sut: LocalLoadPurchases;
   cacheStore: CacheStoreSpy;
 };
 
 const makeSut = (timestamp = new Date()): SutTypes => {
   const cacheStore = new CacheStoreSpy();
-  const sut = new LocalSavePurchases(cacheStore, timestamp);
+  const sut = new LocalLoadPurchases(cacheStore, timestamp);
 
   return { cacheStore, sut };
 };
