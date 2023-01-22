@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/main/index.js",
+    "build": "tsup src --minify --sourcemap",
+    "dev": "tsx watch src/main/index.ts",
     "test": "vitest",
     "test:cli": "vitest run"
   },
