@@ -6,7 +6,7 @@ Para poder controlar minhas despesas
 
 Cenário: Obter dados da cliente online API
 
-Dado que o cliente tem conexão coma internet
+Dado que o cliente tem conexão com internet
 Quando o cliente solicitar para carregar suas compras
 Então o sistema deve exibir suas compras vindo de uma API
 
@@ -28,9 +28,9 @@ Dado que o cliente não tem conexão com a internet
 E exista algum dado gravado no cache
 E os dados do cache forem mais velhos ou iguais a 3 dias
 Quando o cliente solicitar para carregar suas compras
-Então o sistema deve exibir uma mensagem de erro
+Então o sistema deve exibir uma lista vazia
 
 Dado que o cliente não tem conexão com a internet
 E o cache esteja vazio
 Quando o cliente solicitar para carregar suas compras
-Então o sistema deve exibir uma mensagem de erro
+Então o sistema deve exibir uma lista vazia
